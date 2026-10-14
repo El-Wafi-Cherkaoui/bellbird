@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1 (2026-10-14)
+
+- README: how to use bellbird in your own project, with recipes for a one-shot script and a long-running app, and notes on reusing one player, CommonJS and TypeScript.
+
 ## 0.1.0 (2026-10-14)
 
 First release, extracted from Sable's sound module.

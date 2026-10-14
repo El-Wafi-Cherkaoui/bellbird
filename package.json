@@ -1,6 +1,6 @@
 {
   "name": "bellbird",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Soft, zero-dependency sound cues for Node CLIs and terminal apps. Synthesized in code, low latency on Linux and Windows.",
   "type": "module",
   "license": "MIT",
@@ -13,8 +13,22 @@
     "url": "https://github.com/El-Wafi-Cherkaoui/bellbird/issues"
   },
   "homepage": "https://github.com/El-Wafi-Cherkaoui/bellbird#readme",
-  "keywords": ["sound", "audio", "cli", "terminal", "tui", "notification", "earcon", "chime", "beep", "accessibility"],
-  "files": ["dist", "!dist/**/*.test.*"],
+  "keywords": [
+    "sound",
+    "audio",
+    "cli",
+    "terminal",
+    "tui",
+    "notification",
+    "earcon",
+    "chime",
+    "beep",
+    "accessibility"
+  ],
+  "files": [
+    "dist",
+    "!dist/**/*.test.*"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {

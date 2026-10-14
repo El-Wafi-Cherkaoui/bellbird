@@ -49,6 +49,58 @@ sound.close();
 
 `play()` returns at once. Use `await sound.playAndWait("success")` when you want the sound to finish before your process exits.
 
+**Create one player and reuse it.** `bellbird()` starts a helper process (on Linux and Windows), so call it once when your app starts, not every time you play a sound.
+
+TypeScript types are included. bellbird is an ES module: from CommonJS, `require("bellbird")` works on Node 20.19+ and 22.12+; on older versions use `const { bellbird } = await import("bellbird")`.
+
+### Recipe: a script that plays a sound when it's done
+
+For a build script or a one-shot CLI command. The process exits right after, so wait for the sound to finish first.
+
+```ts
+import { bellbird } from "bellbird";
+
+// Leave `enabled` out unless the user asked for silence, so BELLBIRD=0 and CI are respected.
+const sound = bellbird(process.argv.includes("--quiet") ? { enabled: false } : {});
+
+try {
+  await runTheBuild();
+  await sound.playAndWait("success");
+} catch (error) {
+  console.error(error);
+  await sound.playAndWait("error");
+  process.exitCode = 1;
+} finally {
+  sound.close();
+}
+```
+
+### Recipe: a long-running app (TUI, dev server, watcher)
+
+Make one player in its own module and import it wherever you need sound.
+
+```ts
+// sound.ts
+import { bellbird, soundAllowed } from "bellbird";
+import { settings } from "./settings.js";
+
+// Your app's own sound setting, and BELLBIRD=0 / CI still win.
+export const sound = bellbird({ enabled: settings.sound && soundAllowed() });
+
+process.on("exit", () => sound.close());
+```
+
+```ts
+// anywhere else
+import { sound } from "./sound.js";
+
+sound.play("start");            // a server or task started
+sound.play("attention");        // something crashed or needs the user
+sound.setEnabled(false);        // the user turned sound off in your settings
+```
+
+If your app handles Ctrl+C itself, call `sound.close()` there too. If it doesn't, the helper notices that your app is gone and exits on its own.
+
 ### Built-in cues
 
 | Cue | Sounds like | For |
