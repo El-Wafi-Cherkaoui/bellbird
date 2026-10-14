@@ -1,0 +1,49 @@
+{
+  "name": "bellbird",
+  "version": "0.1.0",
+  "description": "Soft, zero-dependency sound cues for Node CLIs and terminal apps. Synthesized in code, low latency on Linux and Windows.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Cherkaoui-El-Wafi <elwafi.cherkaoui@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/El-Wafi-Cherkaoui/bellbird.git"
+  },
+  "bugs": {
+    "url": "https://github.com/El-Wafi-Cherkaoui/bellbird/issues"
+  },
+  "homepage": "https://github.com/El-Wafi-Cherkaoui/bellbird#readme",
+  "keywords": ["sound", "audio", "cli", "terminal", "tui", "notification", "earcon", "chime", "beep", "accessibility"],
+  "files": ["dist", "!dist/**/*.test.*"],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "bellbird": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint src/",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "sounds": "node scripts/render-sounds.mjs",
+    "prepublishOnly": "npm run lint && npm run typecheck && npm run build && npm test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.0.0",
+    "eslint": "^10.9.1",
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.69.0",
+    "vitest": "^4.1.10"
+  }
+}

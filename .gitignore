@@ -1,0 +1,19 @@
+node_modules/
+dist/
+
+# npm pack output and logs
+*.tgz
+npm-debug.log*
+
+# Test coverage
+coverage/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# AI agent files
+CLAUDE.md
+.claude/
